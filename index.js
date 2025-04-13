@@ -10,15 +10,17 @@ const checkApiKey = require('./middleware/apiKey');
 const app = express();
 const PORT = process.env.PORT || 3005;
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Acesso negado'));
-    }
-  }
-}));
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Acesso negado'));
+//     }
+//   }
+// }));
+
+app.use(cors())
 
 app.use(express.json());
 app.use(checkApiKey);
