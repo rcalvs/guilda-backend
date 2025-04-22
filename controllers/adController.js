@@ -18,7 +18,13 @@ exports.getAllAds = async (req, res) => {
   try {
     const keys = await redis.keys('ad:*');
     const values = await redis.mget(keys);
-    const ads = values.map(val => JSON.parse(val));
+
+    const ads = values.map(val => {
+      const ad = JSON.parse(val);
+      const { id, ...rest } = ad;
+      return rest;
+    });
+
     res.json(ads);
   } catch (err) {
     res.status(500).json({ error: 'Erro ao buscar anúncios.' });

@@ -16,7 +16,13 @@ exports.getAllStore = async (req, res) => {
   try {
     const keys = await redis.keys('store:*');
     const values = await redis.mget(keys);
-    const stores = values.map(val => JSON.parse(val));
+
+    const stores = values.map(val => {
+      const store = JSON.parse(val);
+      const { id, ...rest } = store;
+      return rest;
+    });
+
     res.json(stores);
   } catch (err) {
     res.status(500).json({ error: 'Erro ao buscar lojas.' });
