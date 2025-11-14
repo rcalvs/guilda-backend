@@ -6,6 +6,7 @@ const adRoutes = require("./routes/adRoutes");
 const storeRoutes = require("./routes/storeRoutes")
 const riftRoutes = require("./routes/riftRoutes")
 const yellowRoutes = require("./routes/yellowRoutes")
+const guildRoutes = require("./routes/guildRoutes")
 const checkApiKey = require('./middleware/apiKey');
 
 const app = express();
@@ -15,8 +16,9 @@ app.use(cors())
 
 app.use(express.json());
 
-// Public route (no authentication)
+// Public routes (no authentication)
 app.use("/yellow", yellowRoutes);
+app.use("/guild", guildRoutes);
 
 // Authentication middleware for other routes
 app.use(checkApiKey);
